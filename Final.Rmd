@@ -7,7 +7,7 @@ output:
 ---
 
 \begin{center}
-Github Repo : 
+Github Repo : https://github.com/shloksomani/STA304-FinalProject
 \end{center}
 
 ```{r setup, include=FALSE}
