@@ -1,5 +1,5 @@
 ---
-title: "STA304-Final"
+title: "The Lifeblood of Democracy: What would happen if everyone voted? A Statistical Analysis"
 author: "Shlok Somani"
 date: "12/21/2020"
 output:
@@ -43,16 +43,19 @@ Multilevel Regression, Post-Stratification, 2019 Canadian Federal Election, Surv
 Voting, the lifeblood of democracy, to this day remains an issue in Canadian politics. Despite several efforts such as social media marketing and the ‘I voted’ movement, voter turnout remained at a 77% in the 2019 Canadian federal election(1). It has been proven, time and time again, that the demographic that opts out of voting, in fact, the most influential group as they represent the neutral group of the political spectrum. In order to understand this phenomena further, this paper will utilize MRP as a statistical technique to transform national opinion survey results into local estimates to examine how the result could have been different if all the eligible voters have voted. 
 
 
+\newpage
+
 # Methodology
 ## Data 
 ### Survey Data 
+The survey data used in the report comes from the 2019 Canadian Election Study (Stephenson et al.,2020). The study focuses on Canadian citizens or permanent residents of Canada aged 18 years or older. It was administered online in English and French between September 13 and October 21, 2019 (Stephenson et al.,2020). It is a preferred data set for this particular set of analysis and data manipulation as the predictor values align among the two sources: Census and the Election study. The following are the predictor variables utilized for the post-stratification of data:
 
+- Province
+- Gender
+- Age
+- Education 
 
-
-
-
-(Stephenson et al.,2020)
-
+Table 1 and 2 shows the proportions of votes for different provinces. Table 1 and  Table 2 has the data for the Liberal and conservatives votes respectively. There are two values 0 and 1, 0 being false and 1 being true. 
 
 ```{r, echo = FALSE, results = "asis"}
 table_one <- tableby(vote_liberal ~ province , data = survey_data)
@@ -63,17 +66,25 @@ summary(table_two, title = "Conservative Data")
 ```
 
 ### Census Data
-The data of the 2016 GSS (General Social Survey) was collected through CATI1 (Computer Assisted Telephone Interviews). Respondents were interviewed in either English or French. Phone calls were made from 9:00 a.m. to 9:30 p.m. Mondays to Fridays, 10:00 a.m. to 5:00 p.m. on Saturday and 1:00 p.m. to 9:00 p.m. on Sunday. Each record in the survey frame was assigned to a stratum within its province. A simple random sample without replacement of records was next selected in each stratum. A minimum sample size for each stratum is needed to ensure an acceptable estimation for every stratum. Once that minimum is reached, the rest would be distributed to the strata that would balance the precision of  both nation-level and stratum-level estimates. The amount of people who responded to this survey, which is the sample population, is 19,609. However, it is important to note that the response rate of this survey was 50.8%. 
+The data of the 2016 GSS (General Social Survey) was collected through CATI1 (Computer Assisted Telephone Interviews). Respondents were interviewed under the following conditions:
+
+- Language used was English or French. 
+- Phone calls were made from 
+  - 9:00 a.m. to 9:30 p.m. Mondays to Fridays, 
+  - 10:00 a.m. to 5:00 p.m. on Saturday 
+  - and 1:00 p.m. to 9:00 p.m. on Sunday. 
+  
+Further to this, each record in the survey frame was assigned to a stratum within its province. A simple random sample without replacement of records was next selected in each stratum. A minimum sample size for each stratum is needed to ensure an acceptable estimation for every stratum. Once that minimum is reached, the rest would be distributed to the strata that would balance the precision of  both nation-level and stratum-level estimates. The amount of people who responded to this survey, which is the sample population, is 19,609. However, it is important to note that the response rate of this survey was 50.8%. 
 
 
-
+\newpage
 
 # Modle 
 By employing techniques such as post-stratification, we create a model that predicts the popular vote outcome if the voter turnout was 100% in the 2019 Canadian federal election. In the following subsections, the model specifics and the post-stratification calculations are explained in further detail.
 
 ## Model-specific 
 
-Using two logistic regression models, the proportion of voters who choose to vote for the Liberal and Conservative party respectively will be identified. Since logistic regression is a statistical model that uses logistic function to model a binary response variable, it is an appropriate prediction tool to determine whether the voter would vote liberal or conservative. Furthermore, age, gender, province and education will act as predictor variables due to their high level of influence on voter behavior. Below are the two models one for the liberal and the other is for conservative. 
+Using two logistic regression models, the proportion of voters who choose to vote for the Liberal and Conservative party respectively will be identified. Since logistic regression is a statistical model that uses logistic function to model a binary response variable, it is an appropriate prediction tool to determine whether the voter would vote liberal or conservative. Furthermore, age, gender, province and education will act as predictor variables due to their high level of influence on voter behavior. Below are the two models one for the liberal and the other is for conservative. Model summary is in the appendix section.  
 
 \begin{equation}
 log(\frac{\hat{p}_{Liberal}}{1-\hat{p}_{Liberal}}) =  \alpha_{0}  + \alpha_{1}x_{age} + \alpha_{2}x_{sex} + \alpha_{3}x_{education} + \alpha_{4}x_{province}\\
@@ -162,7 +173,7 @@ Now we take a deeper dive into individual predictor variables and how they affec
 
 In Figure 1 we see the Liberal V.S Conservative proportions based on the gender. 
 
-```{r, echo=FALSE ,fig.cap ="Vote Proportion by Gender", fig.show="hold", out.width="50%", out.height="50%"}
+```{r, echo=FALSE ,fig.cap ="Vote Proportion by Gender", fig.show="hold", out.width="50%"}
 ## 
 ## Code Reference : https://www.r-graph-gallery.com/48-grouped-barplot-with-ggplot2.html
 ## https://stackoverflow.com/questions/6644997/showing-data-values-on-stacked-bar-chart-in-ggplot2
@@ -190,7 +201,7 @@ survey_data %>%
 ```
 In Figure 2 we see the Liberal V.S Conservative proportions based on the province.
 
-```{r, echo=FALSE, fig.cap ="Vote Proportion by Province",fig.show="hold", out.width="50%", out.height="50%"}
+```{r, echo=FALSE, fig.cap ="Vote Proportion by Province",fig.show="hold", out.width="50%"}
 
 ## 
 ## Code Reference : https://www.r-graph-gallery.com/48-grouped-barplot-with-ggplot2.html
@@ -245,13 +256,18 @@ While the two parties split the majority of the vote together, there are several
 2. The data of the 2016 GSS only had two option for the gender and the survey data has three options. Because of this the the other's option in the survey data was disregarded which does not depict the full picture of elections.  
 
 
+\newpage
+
 # Next Steps
 
-Based on the results of this model and analysis, we can take our research further in a few ways to enhance the utilization and accuracy of this concept. 
+Based on the results of this model and analysis, we can take our research further in a few ways to enhance the utilization and accuracy of this concept.
 
 1. Include more predictor variables to create a holistic model. While age, gender, province and education level make for a good base model to allow us to create an educated prediction regarding voter results, one of the best ways to improve such a study would be to include more predictor variables in the analysis. Factors such as ethnicity and household income are examples of variables that could provide significant detail to such an analysis. 
-2. Apply this model to other countries and their elections. To examine the accuracy and usefulness of this model and analyses, next steps can include a similar process on other countries’ elections. Perhaps
-3. Utilize such models to raise awareness on the importance of voting.
+
+2. Apply this model to other countries and their elections. To examine the accuracy and usefulness of this model and analyses, next steps can include a similar process on other countries’ elections. Examining the difference in results within countries that have extremely high or low participation rates could provide further insight on the legitimacy of this analysis. 
+
+3. Utilize such models to raise awareness on the importance of voting. Though we often forget, voting is a privilege for most people even to this day. Having the ability to, but not exercising the right, can have a significant impact on the lives of a whole country’s population. As a result, data such as this and simulations along this thought experiment can be leveraged to build ‘voter encouragement’ campaigns and bring awareness to issues regarding participation levels in elections. 
+
 
 
 
